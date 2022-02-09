@@ -1,95 +1,118 @@
-import React from "react";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from "@mui/material";
-import { useSelector } from "react-redux";
-import DataTable from "../../platform/DataTable";
-import { standardOperatingProceduresConstantUtil } from "../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
+  getSopResults,
+  selectSopResults,
+} from "../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
+import { Chip } from "@mui/material";
+import { useEffect, useMemo } from "react";
 
-let dataTableModel = {
+const getPipetteDataTableRows = (data) => {
+  console.log({ data });
+  return data.map((row, idx) => {
+    const newObj = {
+      id: idx + 1,
+      container_size: row.config?.container?.size,
+      container_unit: row.config?.container?.unit,
+      iterations: row.config?.iterations,
+      readings: (row.readings || []).length,
+      accuracy: `Accuracy: ${row.results.accuracy}`,
+      status: row.isCompleted ? "Completed" : "Draft",
+    };
+
+    return newObj;
+  });
+};
+
+let dataTableProps = {
   columns: [
-    { field: "id", headerName: "S.No", sortable: true, align: "center" },
+    {
+      field: "id",
+      headerName: "S.No",
+      sortable: true,
+      align: "center",
+      flex: 1,
+    },
     {
       field: "container_size",
       headerName: "Container Size",
       sortable: true,
       align: "center",
+      flex: 1,
     },
     {
       field: "container_unit",
       headerName: "Container Unit",
       sortable: false,
       align: "center",
+      flex: 1,
     },
     {
       field: "iterations",
       headerName: "Iterations",
       sortable: true,
       align: "center",
+      flex: 1,
     },
     {
       field: "readings",
-      headerName: "Readings",
+      headerName: "Total Readings",
       sortable: false,
       align: "center",
+      flex: 1,
     },
     {
-      field: "results",
-      headerName: "Results",
+      field: "accuracy",
+      headerName: "Accuracy",
       sortable: false,
       align: "center",
+      flex: 1,
     },
-    { field: "status", headerName: "Status", sortable: false, align: "center" },
+    {
+      field: "status",
+      headerName: "Status",
+      sortable: false,
+      align: "center",
+      flex: 1,
+      renderCell: ({ value }) => {
+        return <Chip label={value} color="success" variant="outlined" />;
+      },
+    },
+    {
+      field: "actions",
+      type: "actions",
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<span>abc</span>}
+          onClick={() => {}}
+          label="Delete"
+        />,
+      ],
+    },
   ],
-  rows: [],
-  isSelection: false,
-  rowsPerPage: [5, 10],
+  rowsPerPageOptions: [5, 10],
   pageSize: 5,
 };
 
-export default function PipetteCalibrationHistoryList() {
-  const { pipette_calibration: pipetteCalibration } = useSelector(
-    selectSopsResultsHistory
-  );
+export default function PipetteCalibrationDataTable() {
+  const { sopResults } = useSelector(selectSopResults);
 
-  dataTableModel.rows = pipetteCalibration.map((row, idx) => {
-    let readings = "";
-    row.readings.forEach((reading, idx) => {
-      readings += `Reading ${idx + 1}: ${reading} `;
-    });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getSopResults("pipette_calibration"));
+  }, []);
 
-    let results = "";
-    let StatsMethodsDisplayTextMap =
-      standardOperatingProceduresConstantUtil.StatsMethodsDisplayTextMap;
-    Object.entries(row.results).forEach(([key, value]) => {
-      results += `${StatsMethodsDisplayTextMap[key]}: ${value} `;
-    });
+  useEffect(() => {
+    console.log({ sopResults });
+  }, [sopResults]);
 
-    const newObj = {
-      id: idx + 1,
-      container_size: row.config?.container?.size,
-      container_unit: row.config?.container?.unit,
-      iterations: row.config?.iterations,
-      readings: readings,
-      results: results,
-      status: row.isCompleted ? "Completed" : "Draft",
-    };
-
-    return newObj;
-  });
+  // const dataRows = useMemo(() => {
+  //   return getPipetteDataTableRows(sopResults);
+  // }, [sopResults]);
 
   return (
-    <DataTable
-      columns={dataTableModel.columns}
-      rows={dataTableModel.rows}
-      rowsPerPage={dataTableModel.rowsPerPage}
-      pageSize={dataTableModel.pageSize}
-    />
+    <div style={{ width: "1200px", height: "300px" }}>
+      <DataGrid {...dataTableProps} rows={[]} />
+    </div>
   );
 }
