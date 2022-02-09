@@ -5,19 +5,18 @@ import {
   selectSopResults,
 } from "../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
 import { Chip } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 const getPipetteDataTableRows = (data) => {
-  console.log({ data });
-  return data.map((row, idx) => {
+  return data.map(({ id, config, readings, results, isCompleted }, idx) => {
     const newObj = {
-      id: idx + 1,
-      container_size: row.config?.container?.size,
-      container_unit: row.config?.container?.unit,
-      iterations: row.config?.iterations,
-      readings: (row.readings || []).length,
-      accuracy: `Accuracy: ${row.results.accuracy}`,
-      status: row.isCompleted ? "Completed" : "Draft",
+      id,
+      container_size: config?.container?.size,
+      container_unit: config?.container?.unit,
+      iterations: config?.iterations,
+      readings: (readings || []).length,
+      accuracy: `Accuracy: ${results.accuracy}`,
+      status: isCompleted ? "Completed" : "Draft",
     };
 
     return newObj;
@@ -95,7 +94,8 @@ let dataTableProps = {
 };
 
 export default function PipetteCalibrationDataTable() {
-  const { sopResults } = useSelector(selectSopResults);
+  const sopResults = useSelector(selectSopResults);
+  const [dataRows, setDataRows] = useState([]);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -103,16 +103,13 @@ export default function PipetteCalibrationDataTable() {
   }, []);
 
   useEffect(() => {
-    console.log({ sopResults });
-  }, [sopResults]);
-
-  // const dataRows = useMemo(() => {
-  //   return getPipetteDataTableRows(sopResults);
-  // }, [sopResults]);
+    if (sopResults.length && !dataRows.length)
+      setDataRows(getPipetteDataTableRows(sopResults));
+  }, [sopResults, dataRows]);
 
   return (
     <div style={{ width: "1200px", height: "300px" }}>
-      <DataGrid {...dataTableProps} rows={[]} />
+      <DataGrid {...dataTableProps} rows={dataRows} />
     </div>
   );
 }
