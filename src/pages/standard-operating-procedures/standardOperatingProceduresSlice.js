@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createSop, updateSop, getSopResults, getSopResult } from "../../apis";
+import {
+  createSop as createSopAPI,
+  updateSop as updateSopAPI,
+  getSopResults as getSopResultsAPI,
+  getSopResult as getSopResultAPI,
+} from "../../apis";
 
 const initialState = {
   activeSop: undefined,
@@ -43,7 +48,7 @@ const initialState = {
 export const getSopResults = createAsyncThunk(
   "sops/getSopResults",
   async (activeSop) => {
-    const response = await getSopResults(activeSop);
+    const response = await getSopResultsAPI(activeSop);
     return response.data;
   }
 );
@@ -51,18 +56,18 @@ export const getSopResults = createAsyncThunk(
 export const getSopResult = createAsyncThunk(
   "sops/getSopResult",
   async (payload) => {
-    const response = await getSopResult(payload);
+    const response = await getSopResultAPI(payload);
     return response.data;
   }
 );
 
 export const createSop = createAsyncThunk("sops/createSop", async (payload) => {
-  const response = await createSop(payload);
+  const response = await createSopAPI(payload);
   return response.data;
 });
 
 export const updateSop = createAsyncThunk("sops/updateSop", async (payload) => {
-  const response = await updateSop(payload);
+  const response = await updateSopAPI(payload);
   return response.data;
 });
 
