@@ -6,8 +6,9 @@ import {
 } from "../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
 import { Chip } from "@mui/material";
 import { useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import { useLocation, useNavigate } from "react-router";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const getPipetteDataTableRows = (data) => {
   return data.map(({ id, config, readings, results, isCompleted }, idx) => {
@@ -19,6 +20,7 @@ const getPipetteDataTableRows = (data) => {
       readings: (readings || []).length,
       accuracy: `Accuracy: ${results.accuracy}`,
       status: isCompleted ? "Completed" : "Draft",
+      isCompleted: isCompleted,
     };
 
     return newObj;
@@ -96,7 +98,6 @@ export default function PipetteCalibrationDataTable(props) {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(props);
     dispatch(getSopResults("pipette_calibration"));
   }, []);
 
@@ -119,13 +120,21 @@ export default function PipetteCalibrationDataTable(props) {
       headerName: "Actions",
       getActions: (params) => {
         console.log({ params });
-        return [
+        let availableActions = [
           <GridActionsCellItem
+            disabled={params.row.isCompleted === false}
+            icon={<VisibilityIcon />}
+            onClick={() => onEdit(params.row.id)}
+            label="View"
+          />,
+          <GridActionsCellItem
+            disabled={params.row.isCompleted === true}
             icon={<EditIcon />}
             onClick={() => onEdit(params.row.id)}
             label="Edit"
           />,
         ];
+        return availableActions;
       },
     },
   ];
