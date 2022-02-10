@@ -3,9 +3,10 @@ import { Outlet, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Paper, Box, Grid } from "@mui/material";
 
-import styles from "./StandardOperatingProceduresPage.css";
 import CenterContainer from "../../components/platform/CenterContainer";
 import { selectAvailableSops } from "./standardOperatingProceduresSlice";
+
+import styles from "./StandardOperatingProceduresPage.css";
 
 export function StandardOperatingProceduresPage() {
   const availableSops = useSelector(selectAvailableSops);
