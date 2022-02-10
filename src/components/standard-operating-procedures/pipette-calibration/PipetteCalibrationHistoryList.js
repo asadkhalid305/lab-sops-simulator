@@ -6,6 +6,8 @@ import {
 } from "../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
 import { Chip } from "@mui/material";
 import { useEffect, useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import { useLocation, useNavigate } from "react-router";
 
 const getPipetteDataTableRows = (data) => {
   return data.map(({ id, config, readings, results, isCompleted }, idx) => {
@@ -74,31 +76,27 @@ let dataTableProps = {
       align: "center",
       flex: 1,
       renderCell: ({ value }) => {
-        return <Chip label={value} color="success" variant="outlined" />;
+        return (
+          <Chip
+            label={value}
+            color={value === "Completed" ? "success" : "primary"}
+            variant="outlined"
+          />
+        );
       },
-    },
-    {
-      field: "actions",
-      type: "actions",
-      getActions: (params) => [
-        <GridActionsCellItem
-          icon={<span>abc</span>}
-          onClick={() => {}}
-          label="Delete"
-        />,
-      ],
     },
   ],
   rowsPerPageOptions: [5, 10],
   pageSize: 5,
 };
 
-export default function PipetteCalibrationDataTable() {
+export default function PipetteCalibrationDataTable(props) {
   const sopResults = useSelector(selectSopResults);
   const [dataRows, setDataRows] = useState([]);
 
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log(props);
     dispatch(getSopResults("pipette_calibration"));
   }, []);
 
@@ -107,9 +105,34 @@ export default function PipetteCalibrationDataTable() {
       setDataRows(getPipetteDataTableRows(sopResults));
   }, [sopResults, dataRows]);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const onEdit = (id) => {
+    navigate(`${location.pathname}/${id}`);
+  };
+
+  let columns = [
+    ...dataTableProps.columns,
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
+      getActions: (params) => {
+        console.log({ params });
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            onClick={() => onEdit(params.row.id)}
+            label="Edit"
+          />,
+        ];
+      },
+    },
+  ];
+
   return (
     <div style={{ width: "1200px", height: "300px" }}>
-      <DataGrid {...dataTableProps} rows={dataRows} />
+      <DataGrid {...dataTableProps} columns={columns} rows={dataRows} />
     </div>
   );
 }
