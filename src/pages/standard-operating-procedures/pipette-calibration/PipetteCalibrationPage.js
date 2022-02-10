@@ -11,6 +11,9 @@ export function PipetteCalibrationPage() {
       <Button>
         <Link to="/">Go back</Link>
       </Button>
+      <Button>
+        <Link to="/sops/pipette-calibration/create">Add New Test</Link>
+      </Button>
       <h1>Pipette Calibration</h1>
 
       <PipetteCalibrationHistoryList />

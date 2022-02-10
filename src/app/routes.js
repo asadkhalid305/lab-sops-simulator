@@ -2,8 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import {
   StandardOperatingProceduresPage,
-  NotFound404Page,
   PipetteCalibrationPage,
+  PipetteCalibrationHistoryDetailsPage,
+  NotFound404Page,
 } from "../pages";
 
 export default function Routing() {
@@ -18,6 +19,14 @@ export default function Routing() {
         <Route
           path="sops/pipette-calibration"
           element={<PipetteCalibrationPage />}
+        />
+        <Route
+          path="sops/pipette-calibration/create"
+          element={<PipetteCalibrationHistoryDetailsPage />}
+        />
+        <Route
+          path="sops/pipette-calibration/:id"
+          element={<PipetteCalibrationHistoryDetailsPage />}
         />
         <Route path="*" element={<NotFound404Page />} />
       </Routes>
