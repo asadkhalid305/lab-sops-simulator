@@ -11,15 +11,12 @@ export default function Routing() {
   return (
     <Router>
       <Routes>
-        <Route index element={<StandardOperatingProceduresPage />}></Route>
+        <Route index element={<StandardOperatingProceduresPage />} />
         <Route
           path="sops"
           element={<StandardOperatingProceduresPage />}
-        ></Route>
-        <Route
-          path="sops/pipette-calibration"
-          element={<PipetteCalibrationPage />}
         />
+        <Route path="sops/:type" element={<PipetteCalibrationPage />} />
         <Route
           path="sops/pipette-calibration/create"
           element={<PipetteCalibrationHistoryDetailsPage />}

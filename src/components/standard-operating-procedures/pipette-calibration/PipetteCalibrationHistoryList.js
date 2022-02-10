@@ -1,19 +1,23 @@
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { Chip } from "@mui/material";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
 import {
   getSopResults,
   selectSopResults,
+  selectIsFetchingSopResults,
 } from "../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
-import { Chip } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
-import EditIcon from "@mui/icons-material/Edit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { standardOperatingProceduresConstantUtil } from "../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
 const getPipetteDataTableRows = (data) => {
   return data.map(({ id, config, readings, results, isCompleted }, idx) => {
     const newObj = {
       id,
+      s_no: idx + 1,
       container_size: config?.container?.size,
       container_unit: config?.container?.unit,
       iterations: config?.iterations,
@@ -30,7 +34,7 @@ const getPipetteDataTableRows = (data) => {
 let dataTableProps = {
   columns: [
     {
-      field: "id",
+      field: "s_no",
       headerName: "S.No",
       sortable: true,
       align: "center",
@@ -88,17 +92,22 @@ let dataTableProps = {
       },
     },
   ],
-  rowsPerPageOptions: [5, 10],
-  pageSize: 5,
+  pageSize: 6,
 };
 
 export default function PipetteCalibrationDataTable(props) {
   const sopResults = useSelector(selectSopResults);
+  const isFetchingSopResults = useSelector(selectIsFetchingSopResults);
   const [dataRows, setDataRows] = useState([]);
-
   const dispatch = useDispatch();
+  const { type } = useParams();
+
   useEffect(() => {
-    dispatch(getSopResults("pipette_calibration"));
+    dispatch(
+      getSopResults(
+        standardOperatingProceduresConstantUtil.routeToModuleMap[type]
+      )
+    );
   }, []);
 
   useEffect(() => {
@@ -108,18 +117,20 @@ export default function PipetteCalibrationDataTable(props) {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const onEdit = (id) => {
     navigate(`${location.pathname}/${id}`);
   };
 
-  let columns = [
-    ...dataTableProps.columns,
+  let { columns, ...restProps } = dataTableProps;
+
+  columns = [
+    ...columns,
     {
       field: "actions",
       type: "actions",
       headerName: "Actions",
       getActions: (params) => {
-        console.log({ params });
         let availableActions = [
           <GridActionsCellItem
             disabled={params.row.isCompleted === false}
@@ -138,10 +149,14 @@ export default function PipetteCalibrationDataTable(props) {
       },
     },
   ];
-
   return (
-    <div style={{ width: "1200px", height: "300px" }}>
-      <DataGrid {...dataTableProps} columns={columns} rows={dataRows} />
+    <div style={{ width: "70vw", height: "43vh" }}>
+      <DataGrid
+        {...restProps}
+        columns={columns}
+        rows={dataRows}
+        loading={isFetchingSopResults}
+      />
     </div>
   );
 }

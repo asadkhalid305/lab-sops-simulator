@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import uuid from 'react-uuid'
+
 import {
   createSop as createSopAPI,
   updateSop as updateSopAPI,
@@ -10,32 +12,32 @@ const initialState = {
   activeSop: undefined,
   availableSops: [
     {
-      id: 1,
+      id: uuid(),
       name: "Routine Pipette Check and Calibration",
       type: "pipette_calibration",
       isEnabled: true,
       path: "/sops/pipette-calibration",
     },
     {
-      id: 2,
-      name: "X",
-      type: "pipette_calibration",
+      id: uuid(),
+      name: "Coming Soon",
+      type: "",
       isEnabled: false,
-      path: "/sops/pipette-calibration",
+      path: "/",
     },
     {
-      id: 3,
-      name: "Y",
-      type: "pipette_calibration",
+      id: uuid(),
+      name: "Coming Soon",
+      type: "",
       isEnabled: false,
-      path: "/sops/pipette-calibration",
+      path: "/",
     },
     {
-      id: 4,
-      name: "Z",
-      type: "pipette_calibration",
+      id: uuid(),
+      name: "Coming Soon",
+      type: "",
       isEnabled: false,
-      path: "/sops/pipette-calibration",
+      path: "/",
     },
   ],
   sopResults: [],
@@ -49,7 +51,7 @@ export const getSopResults = createAsyncThunk(
   "sops/getSopResults",
   async (activeSop) => {
     const response = await getSopResultsAPI(activeSop);
-    return response.data;
+    return (response || {}).data;
   }
 );
 
@@ -57,18 +59,18 @@ export const getSopResult = createAsyncThunk(
   "sops/getSopResult",
   async (payload) => {
     const response = await getSopResultAPI(payload);
-    return response.data;
+    return (response || {}).data;
   }
 );
 
 export const createSop = createAsyncThunk("sops/createSop", async (payload) => {
   const response = await createSopAPI(payload);
-  return response.data;
+  return (response || {}).data;
 });
 
 export const updateSop = createAsyncThunk("sops/updateSop", async (payload) => {
   const response = await updateSopAPI(payload);
-  return response.data;
+  return (response || {}).data;
 });
 
 export const sopsSlice = createSlice({
@@ -125,5 +127,7 @@ export const { setActiveSop } = sopsSlice.actions;
 
 export const selectAvailableSops = (state) => state.sops.availableSops;
 export const selectSopResults = (state) => state.sops.sopResults;
+export const selectActiveSop = (state) => state.sops.activeSop;
+export const selectIsFetchingSopResults = (state) => state.sops.isFetchingSopResults;
 
 export default sopsSlice.reducer;

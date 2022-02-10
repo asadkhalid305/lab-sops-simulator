@@ -5,4 +5,7 @@ export const standardOperatingProceduresConstantUtil = {
     accuracy: "Accuracy",
     precision: "Precision",
   },
+  routeToModuleMap: {
+    "pipette-calibration": 'pipette_calibration'
+  },
 };
