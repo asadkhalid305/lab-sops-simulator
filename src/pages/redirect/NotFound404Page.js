@@ -1,6 +1,9 @@
+// packages
 import React from "react";
 import { Grid } from "@mui/material";
-import styles from './NotFound404Page.css'
+
+// styles
+import "./NotFound404Page.css";
 
 export function NotFound404Page() {
   return (

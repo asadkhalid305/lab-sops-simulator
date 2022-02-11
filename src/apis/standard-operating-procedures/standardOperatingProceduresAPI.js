@@ -1,8 +1,9 @@
+// utils
 import { standardOperatingProceduresMockDataUtil } from "../../utils/standard-operating-procedures/standardOperatingProceduresMockDataUtil";
 
 export function getSopResults(activeSop) {
   /**
-   * use id and activeSop as param in GET API call
+   * use activeSop as param in GET API call
    */
   const mockResponse =
     standardOperatingProceduresMockDataUtil.sopsResults[activeSop];

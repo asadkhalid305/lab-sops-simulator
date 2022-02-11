@@ -1,3 +1,4 @@
+// packages
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
@@ -6,13 +7,17 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
+// slices
 import {
   getSopResults,
   selectSopResults,
   selectIsFetchingSopResults,
 } from "../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
+
+// utils
 import { standardOperatingProceduresConstantUtil } from "../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
+// constants
 const getPipetteDataTableRows = (data) => {
   return data.map(({ id, config, readings, results, isCompleted }, index) => ({
     id,
@@ -84,11 +89,15 @@ let dataTableProps = {
 };
 
 export default function PipetteCalibrationDataTable(props) {
+  const [dataRows, setDataRows] = useState([]);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { type } = useParams();
+
   const sopResults = useSelector(selectSopResults);
   const isFetchingSopResults = useSelector(selectIsFetchingSopResults);
-  const [dataRows, setDataRows] = useState([]);
-  const dispatch = useDispatch();
-  const { type } = useParams();
 
   useEffect(() => {
     const activeSop =
@@ -100,9 +109,6 @@ export default function PipetteCalibrationDataTable(props) {
     if (sopResults?.length && !dataRows?.length)
       setDataRows(getPipetteDataTableRows(sopResults));
   }, [sopResults, dataRows]);
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const onEdit = (id) => {
     navigate(`${location.pathname}/${id}`);

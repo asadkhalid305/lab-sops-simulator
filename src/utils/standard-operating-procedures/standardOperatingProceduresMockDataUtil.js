@@ -1,5 +1,3 @@
-import uuid from "react-uuid";
-
 export const standardOperatingProceduresMockDataUtil = {
   sopsResults: {
     pipette_calibration: {

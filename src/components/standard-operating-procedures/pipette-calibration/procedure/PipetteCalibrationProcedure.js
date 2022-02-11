@@ -1,16 +1,10 @@
+// packages
 import { useState, Fragment, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-
-import styles from "./PipetteCalibrationProcedure.css";
-import CustomStepper from "../../../platform/CustomStepper";
-import StepOne from "./StepOne";
-import StepTwo from "./StepTwo";
-import StepThree from "./StepThree";
-import StepFour from "./StepFour";
-import StepFive from "./StepFive";
-import { Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { Paper, Button, Box } from "@mui/material";
+
+// slices
 import {
   selectDraftSop,
   selectSopResults,
@@ -20,9 +14,22 @@ import {
   updateSop,
   getSopResult,
 } from "../../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+
+// components
+import CustomStepper from "../../../platform/CustomStepper";
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
+import StepFour from "./StepFour";
+import StepFive from "./StepFive";
+
+// utils
 import { standardOperatingProceduresConstantUtil } from "../../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
+// styles
+import "./PipetteCalibrationProcedure.css";
+
+// constants
 const steps = [
   {
     id: 1,
@@ -48,25 +55,29 @@ const steps = [
 
 export default function PipetteCalibrationProcedure() {
   const [activeStep, setActiveStep] = useState(0);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
+
   const draftSop = useSelector(selectDraftSop);
   const sopResults = useSelector(selectSopResults);
 
   useEffect(() => {
     const { id, type } = params;
-    if (id) {
-      const activeSop =
-        standardOperatingProceduresConstantUtil.routeToModuleMap[type];
-      dispatch(getSopResult({ id, activeSop })).then((response) => {
-        dispatch(setDraftSop(response.payload));
-      });
+    if (!id) {
+      return;
     }
+    const activeSop =
+      standardOperatingProceduresConstantUtil.routeToModuleMap[type];
+    dispatch(getSopResult({ id, activeSop })).then((response) => {
+      dispatch(setDraftSop(response.payload));
+    });
   }, []);
 
   const handleNext = async () => {
+    // if finish is clicked
     if (activeStep === steps.length - 1) {
       let newDraftSop = { ...draftSop };
       let method = undefined;
@@ -78,19 +89,16 @@ export default function PipetteCalibrationProcedure() {
       }
       dispatch(method(newDraftSop)).then((response) => {
         // we don't need to set sopResults, it is just for demo purpose
-        // const { id } = params;
-        // if (!id) {
-        //   dispatch(setSopResults([...sopResults, response.payload]));
-        // }
+        const { id } = params;
+        if (!id) {
+          dispatch(setSopResults([...sopResults, response.payload]));
+        }
         goBack();
       });
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
-
-  const isResultsAvailable = () =>
-    Object.values(draftSop.results).every((result) => !!result);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -102,6 +110,9 @@ export default function PipetteCalibrationProcedure() {
     );
     navigate(location.pathname.split("/").slice(0, -1).join("/"));
   };
+
+  const isResultsAvailable = () =>
+    Object.values(draftSop.results).every((result) => !!result);
 
   return (
     <CustomStepper steps={steps} activeStep={activeStep}>
@@ -122,7 +133,6 @@ export default function PipetteCalibrationProcedure() {
           </Paper>
         </Box>
 
-        {/* footer */}
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button
             color="inherit"

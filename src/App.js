@@ -1,7 +1,14 @@
+// packages
 import React from "react";
-import "./App.css";
+
+// utils
 import Routes from "./app/routes";
+
+// components
 import BaseContainer from "./components/platform/BaseContainer";
+
+// styles
+import "./App.css";
 
 function App() {
   return (
