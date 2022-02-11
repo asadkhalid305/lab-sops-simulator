@@ -28,6 +28,7 @@ const getPipetteDataTableRows = (data) => {
     readings: (readings || []).length,
     accuracy: `Accuracy: ${results.accuracy}`,
     status: isCompleted ? "Completed" : "Draft",
+    isCompleted: isCompleted,
   }));
 };
 
@@ -123,6 +124,7 @@ export default function PipetteCalibrationDataTable(props) {
       type: "actions",
       headerName: "Actions",
       getActions: (params) => {
+        console.log(params.row.isCompleted);
         let availableActions = [
           <GridActionsCellItem
             disabled={params.row.isCompleted === false}
