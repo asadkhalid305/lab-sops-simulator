@@ -3,13 +3,16 @@
 ___An app to simulate the steps involved in standard operating procedures (SOPs) at a medical laboratory with lots of interactivity and fluent user interface and experience for the researcher.___
 
 ## Features
-✔️ Option to discover a simulation for multiple SOPs. 
-✔️ See records of priovious simulations. 
-✔️ Sort, paginate results.
-✔️ View any existing simulations. 
-✔️ Edit any existing simulations. 
-✔️ Add new simulations. 
-✔️ Dynamic saving mechanism of incomplete simulations. 
+- Option to discover a simulation for multiple SOPs. ✔️ 
+- See records of priovious simulations. ✔️ 
+- Sort, paginate results. ✔️ 
+- View any existing simulations. ✔️ 
+- Edit any existing simulations. ✔️ 
+- Add new simulations. ✔️ 
+- Dynamic saving mechanism of incomplete simulations. ✔️ 
+
+## Demo
+![2022-02-12 at 1 23 21 - Scarlet Koala-1](https://user-images.githubusercontent.com/23138058/153667395-ce9cf577-cd8c-427a-beca-df3088ca08ed.gif)
 
 ## Setup
 
