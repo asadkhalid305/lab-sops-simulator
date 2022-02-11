@@ -1,11 +1,14 @@
+// packages
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Paper, Box, Grid } from "@mui/material";
 
+// slices
 import { selectAvailableSops } from "./standardOperatingProceduresSlice";
 
-import styles from "./StandardOperatingProceduresPage.css";
+// styles
+import "./StandardOperatingProceduresPage.css";
 
 export function StandardOperatingProceduresPage() {
   const availableSops = useSelector(selectAvailableSops);

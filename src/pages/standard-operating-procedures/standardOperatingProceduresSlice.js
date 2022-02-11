@@ -1,6 +1,8 @@
+// packages
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import uuid from "react-uuid";
 
+// utils
 import {
   createSop as createSopAPI,
   updateSop as updateSopAPI,
@@ -10,7 +12,6 @@ import {
 import { standardOperatingProceduresConstantUtil } from "../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
 const initialState = {
-  activeSop: undefined,
   availableSops: [
     {
       id: uuid(),
@@ -43,9 +44,7 @@ const initialState = {
   ],
   sopResults: [],
   isFetchingSopResults: false,
-  isFetchingSopResult: false,
-  isCreatingSop: false,
-  isUpdatingSop: false,
+  activeSop: undefined,
   draftSop: standardOperatingProceduresConstantUtil.initialSopModel,
 };
 
@@ -100,33 +99,6 @@ export const sopsSlice = createSlice({
       })
       .addCase(getSopResults.rejected, (state) => {
         state.isFetchingSopResults = false;
-      })
-      .addCase(getSopResult.pending, (state) => {
-        state.isFetchingSopResult = true;
-      })
-      .addCase(getSopResult.fulfilled, (state) => {
-        state.isFetchingSopResult = false;
-      })
-      .addCase(getSopResult.rejected, (state) => {
-        state.isFetchingSopResult = false;
-      })
-      .addCase(createSop.pending, (state) => {
-        state.isCreatingSop = true;
-      })
-      .addCase(createSop.fulfilled, (state) => {
-        state.isCreatingSop = false;
-      })
-      .addCase(createSop.rejected, (state) => {
-        state.isCreatingSop = false;
-      })
-      .addCase(updateSop.pending, (state) => {
-        state.isUpdatingSop = true;
-      })
-      .addCase(updateSop.fulfilled, (state) => {
-        state.isUpdatingSop = false;
-      })
-      .addCase(updateSop.rejected, (state) => {
-        state.isUpdatingSop = false;
       });
   },
 });
@@ -135,9 +107,9 @@ export const { setActiveSop, setDraftSop, setSopResults } = sopsSlice.actions;
 
 export const selectAvailableSops = (state) => state.sops.availableSops;
 export const selectSopResults = (state) => state.sops.sopResults;
-export const selectActiveSop = (state) => state.sops.activeSop;
 export const selectIsFetchingSopResults = (state) =>
   state.sops.isFetchingSopResults;
+export const selectActiveSop = (state) => state.sops.activeSop;
 export const selectDraftSop = (state) => state.sops.draftSop;
 
 export default sopsSlice.reducer;

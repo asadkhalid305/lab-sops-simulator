@@ -1,9 +1,12 @@
+// packages
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@mui/material";
 
+// components
 import PipetteCalibrationHistoryList from "../../../components/standard-operating-procedures/pipette-calibration/PipetteCalibrationHistoryList";
 
-import styles from "./PipetteCalibrationPage.css";
+// styles
+import "./PipetteCalibrationPage.css";
 
 export function PipetteCalibrationPage() {
   const location = useLocation();

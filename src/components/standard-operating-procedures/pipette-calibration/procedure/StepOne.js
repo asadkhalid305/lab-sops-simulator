@@ -1,6 +1,10 @@
-import { selectDraftSop } from "../../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
+// packages
 import { useSelector } from "react-redux";
 
+// slices
+import { selectDraftSop } from "../../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
+
+// components
 import CustomList from "../../../platform/CustomList";
 
 export default function StepOne(props) {
@@ -23,7 +27,7 @@ export default function StepOne(props) {
       <div className="step-heading">
         <h1>Preparation</h1>
       </div>
-      
+
       <CustomList list={list} />
     </div>
   );

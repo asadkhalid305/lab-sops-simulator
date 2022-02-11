@@ -1,6 +1,9 @@
-import { selectDraftSop } from "../../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
+// packages
 import { useSelector } from "react-redux";
+// slices
+import { selectDraftSop } from "../../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
 
+// components
 import CustomList from "../../../platform/CustomList";
 
 export default function StepThree() {

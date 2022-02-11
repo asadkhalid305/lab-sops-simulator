@@ -1,14 +1,18 @@
+// packages
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, TextField } from "@mui/material";
 import { mean, std } from "mathjs";
 
+// slices
 import {
   selectDraftSop,
   setDraftSop,
 } from "../../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
 
-import style from "./PipetteCalibrationProcedure.css";
-import { useEffect } from "react";
+// styles
+import "./PipetteCalibrationProcedure.css";
+
 
 export default function StepFive(props) {
   const dispatch = useDispatch();

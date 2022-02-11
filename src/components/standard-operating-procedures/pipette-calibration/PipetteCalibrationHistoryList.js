@@ -1,3 +1,4 @@
+// packages
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
@@ -6,11 +7,14 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
+// slices
 import {
   getSopResults,
   selectSopResults,
   selectIsFetchingSopResults,
 } from "../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
+
+// utils
 import { standardOperatingProceduresConstantUtil } from "../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
 const getPipetteDataTableRows = (data) => {

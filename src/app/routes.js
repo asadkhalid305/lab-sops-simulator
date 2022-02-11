@@ -1,5 +1,7 @@
+// packages
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+// pages
 import {
   StandardOperatingProceduresPage,
   PipetteCalibrationPage,

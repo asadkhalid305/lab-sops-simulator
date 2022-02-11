@@ -1,16 +1,10 @@
+// packages
 import { useState, Fragment, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-
-import styles from "./PipetteCalibrationProcedure.css";
-import CustomStepper from "../../../platform/CustomStepper";
-import StepOne from "./StepOne";
-import StepTwo from "./StepTwo";
-import StepThree from "./StepThree";
-import StepFour from "./StepFour";
-import StepFive from "./StepFive";
-import { Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { Paper, Button, Box } from "@mui/material";
+
+// slices
 import {
   selectDraftSop,
   selectSopResults,
@@ -20,9 +14,22 @@ import {
   updateSop,
   getSopResult,
 } from "../../../../pages/standard-operating-procedures/standardOperatingProceduresSlice";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+
+// components
+import CustomStepper from "../../../platform/CustomStepper";
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
+import StepFour from "./StepFour";
+import StepFive from "./StepFive";
+
+// utils
 import { standardOperatingProceduresConstantUtil } from "../../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
+// styles
+import "./PipetteCalibrationProcedure.css";
+
+// constants
 const steps = [
   {
     id: 1,
@@ -48,10 +55,12 @@ const steps = [
 
 export default function PipetteCalibrationProcedure() {
   const [activeStep, setActiveStep] = useState(0);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
+
   const draftSop = useSelector(selectDraftSop);
   const sopResults = useSelector(selectSopResults);
 
@@ -122,7 +131,6 @@ export default function PipetteCalibrationProcedure() {
           </Paper>
         </Box>
 
-        {/* footer */}
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button
             color="inherit"
