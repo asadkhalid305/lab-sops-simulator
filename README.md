@@ -5,7 +5,7 @@ ___An app to simulate the steps involved in standard operating procedures (SOPs)
 ## Features
 - Option to discover a simulation for multiple SOPs. ✔️ 
 - See records of priovious simulations. ✔️ 
-- Sort, paginate results. ✔️ 
+- Sort or paginate records. ✔️ 
 - View any existing simulations. ✔️ 
 - Edit any existing simulations. ✔️ 
 - Add new simulations. ✔️ 
