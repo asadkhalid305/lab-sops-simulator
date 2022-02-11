@@ -1,44 +1,46 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# SOPs Simulator 🩺
 
-## Available Scripts
+___An app to simulate the steps involved in standard operating procedures (SOPs) at a medical laboratory with lots of interactivity and fluent user interface and experience for the researcher.___
 
-In the project directory, you can run:
+## Features
+✔️ Option to discover a simulation for multiple SOPs. 
+✔️ See records of priovious simulations. 
+✔️ Sort, paginate results.
+✔️ View any existing simulations. 
+✔️ Edit any existing simulations. 
+✔️ Add new simulations. 
+✔️ Dynamic saving mechanism of incomplete simulations. 
 
-### `npm start`
+## Setup
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Following instructions will get you a copy of the project up and running on your local machine for development purpose.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1. Install following on your local machine
+	-  	[Git](https://git-scm.com)
+	- [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com))
+2. Clone the repository by running this following command
+	```bash
+	git clone https://github.com/asadkhalid305/labforward-sops.git 
+	```
+3. Start project by running following commands
+	```bash
+	cd labforwards-sops/
+	npm install
+		
+	# once node_modules gets install, run next command
+	npm start
+	```
+4. Once your app is running, you can access it on the following address in your browser
+	[http://localhost:3000](http://localhost:3000)
 
-### `npm test`
+## Versions
+Following versions are being used while creating this guide. 
+```
+git@2.x.x or higher
+node@v16.x.x or higher
+npm@6.x.x or higher
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## About Me
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+_My name is Asad Ullah Khalid and I am BS(CS) graduated. Professionally I am a Full-stack Web engineer majorly Frontend focused with 3+ years of experience working with JavaScript and its frameworks like VueJs, ReactJs, NodeJs, along with SQL and NoSQL databases and by my passion I am a tech speaker, trainer, and mentor along with contributor to Open-Source._

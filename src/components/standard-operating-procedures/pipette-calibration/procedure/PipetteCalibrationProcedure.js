@@ -89,10 +89,10 @@ export default function PipetteCalibrationProcedure() {
       }
       dispatch(method(newDraftSop)).then((response) => {
         // we don't need to set sopResults, it is just for demo purpose
-        // const { id } = params;
-        // if (!id) {
-        //   dispatch(setSopResults([...sopResults, response.payload]));
-        // }
+        const { id } = params;
+        if (!id) {
+          dispatch(setSopResults([...sopResults, response.payload]));
+        }
         goBack();
       });
     } else {
