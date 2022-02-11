@@ -22,6 +22,7 @@ export default function StepFour(props) {
   } = draftSop;
 
   useEffect(() => {
+    // if readings are not available then initialize readings array of iterations times with default value as 0
     if (!readings.length) {
       readings = Array(iterations).fill(0);
       const newDraftSop = { ...draftSop, readings };
@@ -30,6 +31,7 @@ export default function StepFour(props) {
   }, [draftSop]);
 
   const handleChange = (changedIndex, event) => {
+    // if input contains anything other than digits do nothing
     const re = /^[0-9\b]*$/;
     if (!re.test(event.target.value)) {
       return;

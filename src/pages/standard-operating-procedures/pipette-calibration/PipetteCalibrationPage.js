@@ -13,13 +13,15 @@ export function PipetteCalibrationPage() {
 
   return (
     <div>
-      <Button className="nav-btn" variant="contained">
-        <Link to="/">Go back</Link>
-      </Button>
+      <div>
+        <Button className="nav-btn" variant="contained">
+          <Link to="/">Go back</Link>
+        </Button>
 
-      <Button className="nav-btn nav-btn-forward" variant="contained">
-        <Link to={`${location.pathname}/create`}>Add New Test</Link>
-      </Button>
+        <Button className="nav-btn nav-btn-forward" variant="contained">
+          <Link to={`${location.pathname}/create`}>Add New Test</Link>
+        </Button>
+      </div>
 
       <div className="page-title">
         <h1>Pipette Calibration History</h1>

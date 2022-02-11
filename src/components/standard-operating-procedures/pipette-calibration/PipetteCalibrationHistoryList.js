@@ -17,6 +17,7 @@ import {
 // utils
 import { standardOperatingProceduresConstantUtil } from "../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
+// constants
 const getPipetteDataTableRows = (data) => {
   return data.map(({ id, config, readings, results, isCompleted }, index) => ({
     id,
@@ -88,11 +89,15 @@ let dataTableProps = {
 };
 
 export default function PipetteCalibrationDataTable(props) {
+  const [dataRows, setDataRows] = useState([]);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { type } = useParams();
+
   const sopResults = useSelector(selectSopResults);
   const isFetchingSopResults = useSelector(selectIsFetchingSopResults);
-  const [dataRows, setDataRows] = useState([]);
-  const dispatch = useDispatch();
-  const { type } = useParams();
 
   useEffect(() => {
     const activeSop =
@@ -104,9 +109,6 @@ export default function PipetteCalibrationDataTable(props) {
     if (sopResults?.length && !dataRows?.length)
       setDataRows(getPipetteDataTableRows(sopResults));
   }, [sopResults, dataRows]);
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const onEdit = (id) => {
     navigate(`${location.pathname}/${id}`);

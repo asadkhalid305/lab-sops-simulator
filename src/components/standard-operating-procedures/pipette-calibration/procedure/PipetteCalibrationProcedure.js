@@ -66,16 +66,18 @@ export default function PipetteCalibrationProcedure() {
 
   useEffect(() => {
     const { id, type } = params;
-    if (id) {
-      const activeSop =
-        standardOperatingProceduresConstantUtil.routeToModuleMap[type];
-      dispatch(getSopResult({ id, activeSop })).then((response) => {
-        dispatch(setDraftSop(response.payload));
-      });
+    if (!id) {
+      return;
     }
+    const activeSop =
+      standardOperatingProceduresConstantUtil.routeToModuleMap[type];
+    dispatch(getSopResult({ id, activeSop })).then((response) => {
+      dispatch(setDraftSop(response.payload));
+    });
   }, []);
 
   const handleNext = async () => {
+    // if finish is clicked
     if (activeStep === steps.length - 1) {
       let newDraftSop = { ...draftSop };
       let method = undefined;
@@ -98,9 +100,6 @@ export default function PipetteCalibrationProcedure() {
     }
   };
 
-  const isResultsAvailable = () =>
-    Object.values(draftSop.results).every((result) => !!result);
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -111,6 +110,9 @@ export default function PipetteCalibrationProcedure() {
     );
     navigate(location.pathname.split("/").slice(0, -1).join("/"));
   };
+
+  const isResultsAvailable = () =>
+    Object.values(draftSop.results).every((result) => !!result);
 
   return (
     <CustomStepper steps={steps} activeStep={activeStep}>

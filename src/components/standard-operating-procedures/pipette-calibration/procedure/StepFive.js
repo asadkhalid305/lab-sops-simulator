@@ -25,6 +25,7 @@ export default function StepFive(props) {
   } = draftSop;
 
   useEffect(() => {
+    // calculate results only if at least one reading is given
     if (
       nonEmptyReadings().length &&
       Object.values(results).some((result) => !result)

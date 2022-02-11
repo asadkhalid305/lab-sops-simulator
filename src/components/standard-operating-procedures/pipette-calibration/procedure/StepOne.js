@@ -9,6 +9,7 @@ import CustomList from "../../../platform/CustomList";
 
 export default function StepOne(props) {
   const draftSop = useSelector(selectDraftSop);
+
   const {
     config: {
       container: { size, unit },
@@ -22,6 +23,7 @@ export default function StepOne(props) {
     },
     { text: "Place a new pipette tip on the pipettor.", primary: true },
   ];
+  
   return (
     <div>
       <div className="step-heading">
