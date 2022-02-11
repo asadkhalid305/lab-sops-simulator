@@ -1,4 +1,4 @@
-# SOPs Simulator 🩺
+# mLab Simulator 🩺
 
 ___An app to simulate the steps involved in standard operating procedures (SOPs) at a medical laboratory with lots of interactivity and fluent user interface and experience for the researcher.___
 
@@ -42,6 +42,14 @@ Following versions are being used while creating this guide.
 git@2.x.x or higher
 node@v16.x.x or higher
 npm@6.x.x or higher
+```
+
+## Branches
+Current branches and their purposes are as follow.
+```
+main -> contains latest changes
+stable -> reserved for production only
+development -> reserved for active development
 ```
 
 ## About Me
