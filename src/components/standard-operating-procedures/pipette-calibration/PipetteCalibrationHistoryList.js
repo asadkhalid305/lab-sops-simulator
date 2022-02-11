@@ -14,34 +14,16 @@ import {
 import { standardOperatingProceduresConstantUtil } from "../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
 const getPipetteDataTableRows = (data) => {
-<<<<<<< Updated upstream
-  return data.map(({ id, config, readings, results, isCompleted }, idx) => ({
+  return data.map(({ id, config, readings, results, isCompleted }, index) => ({
     id,
-    s_no: idx + 1,
+    s_no: index + 1,
     container_size: config?.container?.size,
     container_unit: config?.container?.unit,
     iterations: config?.iterations,
     readings: (readings || []).length,
-    accuracy: results.accuracy,
+    accuracy: `Accuracy: ${results.accuracy}`,
     status: isCompleted ? "Completed" : "Draft",
   }));
-=======
-  return data.map(({ id, config, readings, results, isCompleted }, index) => {
-    const newObj = {
-      id,
-      s_no: index + 1,
-      container_size: config?.container?.size,
-      container_unit: config?.container?.unit,
-      iterations: config?.iterations,
-      readings: (readings || []).length,
-      accuracy: `Accuracy: ${results.accuracy}`,
-      status: isCompleted ? "Completed" : "Draft",
-      isCompleted: isCompleted,
-    };
-
-    return newObj;
-  });
->>>>>>> Stashed changes
 };
 
 let dataTableProps = {
