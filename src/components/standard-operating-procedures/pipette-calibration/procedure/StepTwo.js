@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function StepTwo() {
-    return (
-        <div>
-            Step Two
-        </div>
-    )
+  return (
+    <div>
+      <p></p>
+    </div>
+  );
 }

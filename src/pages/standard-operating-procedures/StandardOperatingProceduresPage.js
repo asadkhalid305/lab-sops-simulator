@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Paper, Box, Grid } from "@mui/material";
 
-import CenterContainer from "../../components/platform/CenterContainer";
 import { selectAvailableSops } from "./standardOperatingProceduresSlice";
 
-import styles from './StandardOperatingProceduresPage.css'
-
+import styles from "./StandardOperatingProceduresPage.css";
 
 export function StandardOperatingProceduresPage() {
   const availableSops = useSelector(selectAvailableSops);
@@ -34,18 +32,16 @@ export function StandardOperatingProceduresPage() {
     return style;
   }
   return (
-    <CenterContainer>
-      <Grid container spacing={2}>
-        {availableSops.map((sop) => (
-          <Grid key={sop.id} item xs={3}>
-            <Box sx={() => boxStyle(sop)}>
-              <Paper className="sop-box" elevation={5}>
-                <Link to={sop.path}>{sop.name}</Link>
-              </Paper>
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
-    </CenterContainer>
+    <Grid container alignItems="center" justifyContent="center" style={{height: '100vh'}} spacing={2}>
+      {availableSops.map((sop) => (
+        <Grid key={sop.id} item xs={2.5}>
+          <Box sx={() => boxStyle(sop)}>
+            <Paper className="sop-box" elevation={5}>
+              <Link to={sop.path}>{sop.name}</Link>
+            </Paper>
+          </Box>
+        </Grid>
+      ))}
+    </Grid>
   );
 }

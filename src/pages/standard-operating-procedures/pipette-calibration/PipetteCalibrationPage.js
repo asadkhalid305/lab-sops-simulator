@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@mui/material";
 
-import CenterContainer from "../../../components/platform/CenterContainer";
 import PipetteCalibrationHistoryList from "../../../components/standard-operating-procedures/pipette-calibration/PipetteCalibrationHistoryList";
 
 import styles from "./PipetteCalibrationPage.css";
@@ -10,7 +9,7 @@ export function PipetteCalibrationPage() {
   const location = useLocation();
 
   return (
-    <CenterContainer>
+    <div>
       <Button className="nav-btn" variant="contained">
         <Link to="/">Go back</Link>
       </Button>
@@ -24,6 +23,6 @@ export function PipetteCalibrationPage() {
       </div>
 
       <PipetteCalibrationHistoryList />
-    </CenterContainer>
+    </div>
   );
 }

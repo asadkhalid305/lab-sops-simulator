@@ -14,6 +14,7 @@ import {
 import { standardOperatingProceduresConstantUtil } from "../../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
 const getPipetteDataTableRows = (data) => {
+<<<<<<< Updated upstream
   return data.map(({ id, config, readings, results, isCompleted }, idx) => ({
     id,
     s_no: idx + 1,
@@ -24,6 +25,23 @@ const getPipetteDataTableRows = (data) => {
     accuracy: results.accuracy,
     status: isCompleted ? "Completed" : "Draft",
   }));
+=======
+  return data.map(({ id, config, readings, results, isCompleted }, index) => {
+    const newObj = {
+      id,
+      s_no: index + 1,
+      container_size: config?.container?.size,
+      container_unit: config?.container?.unit,
+      iterations: config?.iterations,
+      readings: (readings || []).length,
+      accuracy: `Accuracy: ${results.accuracy}`,
+      status: isCompleted ? "Completed" : "Draft",
+      isCompleted: isCompleted,
+    };
+
+    return newObj;
+  });
+>>>>>>> Stashed changes
 };
 
 let dataTableProps = {
@@ -64,13 +82,6 @@ let dataTableProps = {
       flex: 1,
     },
     {
-      field: "accuracy",
-      headerName: "Accuracy",
-      sortable: false,
-      align: "center",
-      flex: 1,
-    },
-    {
       field: "status",
       headerName: "Status",
       sortable: false,
@@ -98,15 +109,13 @@ export default function PipetteCalibrationDataTable(props) {
   const { type } = useParams();
 
   useEffect(() => {
-    dispatch(
-      getSopResults(
-        standardOperatingProceduresConstantUtil.routeToModuleMap[type]
-      )
-    );
+    const activeSop =
+      standardOperatingProceduresConstantUtil.routeToModuleMap[type];
+    dispatch(getSopResults(activeSop));
   }, []);
 
   useEffect(() => {
-    if (sopResults.length && !dataRows.length)
+    if (sopResults?.length && !dataRows?.length)
       setDataRows(getPipetteDataTableRows(sopResults));
   }, [sopResults, dataRows]);
 
@@ -145,7 +154,7 @@ export default function PipetteCalibrationDataTable(props) {
     },
   ];
   return (
-    <div style={{ width: "70vw", height: "43vh" }}>
+    <div style={{ height: "43vh" }}>
       <DataGrid
         {...restProps}
         columns={columns}

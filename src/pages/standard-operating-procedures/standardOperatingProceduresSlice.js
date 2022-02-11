@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import uuid from 'react-uuid'
+import uuid from "react-uuid";
 
 import {
   createSop as createSopAPI,
@@ -7,6 +7,7 @@ import {
   getSopResults as getSopResultsAPI,
   getSopResult as getSopResultAPI,
 } from "../../apis";
+import { standardOperatingProceduresConstantUtil } from "../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
 const initialState = {
   activeSop: undefined,
@@ -20,21 +21,21 @@ const initialState = {
     },
     {
       id: uuid(),
-      name: "Coming Soon",
+      name: "Not Available",
       type: "",
       isEnabled: false,
       path: "/",
     },
     {
       id: uuid(),
-      name: "Coming Soon",
+      name: "Not Available",
       type: "",
       isEnabled: false,
       path: "/",
     },
     {
       id: uuid(),
-      name: "Coming Soon",
+      name: "Not Available",
       type: "",
       isEnabled: false,
       path: "/",
@@ -45,13 +46,14 @@ const initialState = {
   isFetchingSopResult: false,
   isCreatingSop: false,
   isUpdatingSop: false,
+  draftSop: standardOperatingProceduresConstantUtil.initialSopModel,
 };
 
 export const getSopResults = createAsyncThunk(
   "sops/getSopResults",
   async (activeSop) => {
     const response = await getSopResultsAPI(activeSop);
-    return (response || {}).data;
+    return response?.data || null;
   }
 );
 
@@ -59,18 +61,18 @@ export const getSopResult = createAsyncThunk(
   "sops/getSopResult",
   async (payload) => {
     const response = await getSopResultAPI(payload);
-    return (response || {}).data;
+    return response?.data || null;
   }
 );
 
 export const createSop = createAsyncThunk("sops/createSop", async (payload) => {
   const response = await createSopAPI(payload);
-  return (response || {}).data;
+  return response?.data || null;
 });
 
 export const updateSop = createAsyncThunk("sops/updateSop", async (payload) => {
   const response = await updateSopAPI(payload);
-  return (response || {}).data;
+  return response?.data || null;
 });
 
 export const sopsSlice = createSlice({
@@ -79,6 +81,12 @@ export const sopsSlice = createSlice({
   reducers: {
     setActiveSop: (state, action) => {
       state.activeSop = action.payload;
+    },
+    setDraftSop: (state, action) => {
+      state.draftSop = action.payload;
+    },
+    setSopResults: (state, action) => {
+      state.sopResults = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -123,11 +131,13 @@ export const sopsSlice = createSlice({
   },
 });
 
-export const { setActiveSop } = sopsSlice.actions;
+export const { setActiveSop, setDraftSop, setSopResults } = sopsSlice.actions;
 
 export const selectAvailableSops = (state) => state.sops.availableSops;
 export const selectSopResults = (state) => state.sops.sopResults;
 export const selectActiveSop = (state) => state.sops.activeSop;
-export const selectIsFetchingSopResults = (state) => state.sops.isFetchingSopResults;
+export const selectIsFetchingSopResults = (state) =>
+  state.sops.isFetchingSopResults;
+export const selectDraftSop = (state) => state.sops.draftSop;
 
 export default sopsSlice.reducer;

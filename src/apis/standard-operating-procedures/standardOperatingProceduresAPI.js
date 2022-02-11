@@ -16,7 +16,11 @@ export function getSopResult(payload) {
   const { id, activeSop } = payload;
   let mockResponse =
     standardOperatingProceduresMockDataUtil.sopsResults[activeSop];
-  mockResponse = mockResponse.data.filter((item) => item.id === id);
+  mockResponse = mockResponse.data.find((item) => item.id === id);
+  mockResponse = {
+    status: 200,
+    data: mockResponse,
+  };
   return new Promise((resolve) => setTimeout(() => resolve(mockResponse), 500));
 }
 
