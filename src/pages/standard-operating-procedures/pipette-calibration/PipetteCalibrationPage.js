@@ -1,5 +1,5 @@
 // packages
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
 // components
@@ -8,8 +8,13 @@ import PipetteCalibrationHistoryList from "../../../components/standard-operatin
 // styles
 import "./PipetteCalibrationPage.css";
 
-export function PipetteCalibrationPage() {
+export function PipetteCalibrationPage () {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const onAddNewTest = () => {
+    navigate(`${location.pathname}/create`);
+  };
 
   return (
     <div>
@@ -18,8 +23,8 @@ export function PipetteCalibrationPage() {
           <Link to="/">Go back</Link>
         </Button>
 
-        <Button className="nav-btn nav-btn-forward" variant="contained">
-          <Link to={`${location.pathname}/create`}>Add New Test</Link>
+        <Button onClick={onAddNewTest} className="nav-btn nav-btn-forward" variant="contained">
+          Add New Test
         </Button>
       </div>
 

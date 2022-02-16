@@ -11,6 +11,36 @@ export const standardOperatingProceduresConstantUtil = {
   routeToModuleMap: {
     "pipette-calibration": "pipette_calibration",
   },
+  availableSops: [
+    {
+      id: uuid(),
+      name: "Routine Pipette Check and Calibration",
+      type: "pipette_calibration",
+      isEnabled: true,
+      path: "/sops/pipette-calibration",
+    },
+    {
+      id: uuid(),
+      name: "Not Available",
+      type: "",
+      isEnabled: false,
+      path: "/",
+    },
+    {
+      id: uuid(),
+      name: "Not Available",
+      type: "",
+      isEnabled: false,
+      path: "/",
+    },
+    {
+      id: uuid(),
+      name: "Not Available",
+      type: "",
+      isEnabled: false,
+      path: "/",
+    },
+  ],
   initialSopModel: {
     id: uuid(),
     config: {

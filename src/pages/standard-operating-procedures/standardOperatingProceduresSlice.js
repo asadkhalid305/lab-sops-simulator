@@ -12,36 +12,7 @@ import {
 import { standardOperatingProceduresConstantUtil } from "../../utils/standard-operating-procedures/standardOperatingProceduresConstantUtil";
 
 const initialState = {
-  availableSops: [
-    {
-      id: uuid(),
-      name: "Routine Pipette Check and Calibration",
-      type: "pipette_calibration",
-      isEnabled: true,
-      path: "/sops/pipette-calibration",
-    },
-    {
-      id: uuid(),
-      name: "Not Available",
-      type: "",
-      isEnabled: false,
-      path: "/",
-    },
-    {
-      id: uuid(),
-      name: "Not Available",
-      type: "",
-      isEnabled: false,
-      path: "/",
-    },
-    {
-      id: uuid(),
-      name: "Not Available",
-      type: "",
-      isEnabled: false,
-      path: "/",
-    },
-  ],
+  availableSops: standardOperatingProceduresConstantUtil.availableSops,
   sopResults: [],
   isFetchingSopResults: false,
   activeSop: undefined,
